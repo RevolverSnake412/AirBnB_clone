@@ -8,7 +8,7 @@ class FileStorage:
     """"""
     def __init__(self):
         """Init"""
-        self.__file_path = stockage.json
+        self.__file_path = "stockage.json"
         self.__objects = {}
 
     def all(self):
