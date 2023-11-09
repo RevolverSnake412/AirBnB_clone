@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-The main entry point of the CI
+The main entry point of the
+command interpreter.
 """
 import cmd, json, re
 import models
@@ -11,7 +12,7 @@ from models.engine.__init__ import storage
 class HBNBCommand(cmd.Cmd):
     """
     The main class of the console
-    interpreter
+    interpreter.
     """
     prompt = "(hbnb) "
     dictionary = storage.all()
@@ -70,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """
         Updates the instance of BaseModel and
-        prints its new uuid4 ID
+        prints its new uuid4 ID.
         """
         if (self.errors(args, 1) == 1):
             return
@@ -84,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """
         Prints the string representation
-        of a specific class mentioned
+        of a specific class mentioned.
         """
         if (self.errors(args, 2) == 1):
             return
@@ -102,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """
         Deletes an instance based on the class
-        name and id provided
+        name and id provided.
         """
         if (self.errors(args, 2) == 1):
             return
@@ -121,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """
         Outputs all string representation of all
-        Instances based or not on the class name
+        Instances based or not on the class name.
         """
         dictionary = storage.all()
 
@@ -134,6 +135,43 @@ class HBNBCommand(cmd.Cmd):
 
         print([str(value) for value in dictionary.values()
                if value.__class__.__name__ == args[0]])
+        
+    def do_update(self, args):
+        """
+        Updates an instance based on the class
+        name and id by adding or updating attribute.
+        """
+        if (self.errors(args, 4) == 1):
+            return
+
+        args = args.split()
+        dictionary = storage.all()
+
+        for i in range(len(args[1:]) + 1):
+            if args[i][0] == '"':
+                args[i] = args[i].replace('"', "")
+
+        key = args[0] + '.' + args[1]
+        attribute_key = args[2]
+        attribute_value = args[3]
+
+        try:
+            attr_value = self.convert_attribute_value(attr_value)
+        except ValueError:
+            print("Entered wrong value type")
+            return
+
+        class_attributes = type(dictionary[attribute_key]).__dict__
+
+        if attribute_key in class_attributes.keys():
+            try:
+                attribute_value = type(class_attributes[attribute_key])(attribute_value)
+            except Exception:
+                print("Entered wrong value type")
+                return
+
+        setattr(dictionary[key], attribute_key, attribute_value)
+        storage.save()
 
 interpreter = HBNBCommand()
 interpreter.cmdloop()
