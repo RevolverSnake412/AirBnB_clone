@@ -49,8 +49,10 @@ class FileStorage:
         deserializes the JSON file to objects
         otherwise nothing happens
         """
-        with open(self.__file_path, 'r') as fhand:
-            obj_dict = json.load(fhand)
-        for key in obj_dict:
-            self.__objects[key] = classes[obj_dict[key]
-                                          ["__class__"]](**obj_dict[key])
+        try:
+            with open(self.__file_path, 'r') as fhand:
+                obj_dict = json.load(fhand)
+                for key, value in obj_dict.items():
+                    self.all()[key] = classes[value['__class__']](**value)
+        except json.decoder.JSONDecodeError as e:
+            print(f"JSONDecodeError: {e}")
