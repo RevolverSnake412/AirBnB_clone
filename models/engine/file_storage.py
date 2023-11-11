@@ -22,16 +22,17 @@ class FileStorage:
         Sets in the object dictionary the
         key that is going to be the standard
         """
-        self.__objects[object.__class__.__name__ + '.' + str(object)] = object
+        self.__objects[obj.__class__.__name__ + '.' + str(obj)] = obj
 
     def save(self):
         """
         serializes the objects to JSON file
         (default JSON file = stockage.json)
         """
-        with open(self.__file_path, 'w+') as fhand:
-            json.dump({key: value.to_dict() for key,
-                       value in self.__objects.items()}, fhand)
+        with open(self.__file_path, "w") as fhand:
+            obj_dict = {key: value.to_dict() for key, value in self.__objects.items()}
+            print("Debug: obj_dict before saving:", obj_dict)
+            json.dump(obj_dict, fhand)
 
     def reload(self):
         """
@@ -39,7 +40,7 @@ class FileStorage:
         otherwise nothing happens
         """
         try:
-            with open(self.__file_path, 'r') as fhand:
+            with open(self.__file_path, "r") as fhand:
                 dict = json.loads(fhand.read())
                 for value in dict.values():
                     cls = value["__class__"]
