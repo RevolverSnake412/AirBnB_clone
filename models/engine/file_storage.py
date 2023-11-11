@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """"""
 import json
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -19,6 +20,13 @@ class FileStorage:
         """Init"""
         self.__file_path = "file.json"
         self.__objects = {}
+        self.__create_file_if_not_exists()
+
+    def __create_file_if_not_exists(self):
+        """Create file.json if it doesn't exist"""
+        if not os.path.exists(self.__file_path):
+            with open(self.__file_path, 'w') as fhand:
+                json.dump({}, fhand)
 
     def all(self):
         """
