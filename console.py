@@ -7,6 +7,12 @@ import cmd
 import sys
 import models
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models.__init__ import storage
 
 
@@ -17,7 +23,9 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     dictionary = storage.all()
-    classes = {"BaseModel"}
+    classes = {"BaseModel": BaseModel, "User": User, "State": State,
+           "City": City, "Amenity": Amenity, "Place": Place, "Review": Review,}
+
 
     def emptyline(self):
         """
