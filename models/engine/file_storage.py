@@ -30,7 +30,8 @@ class FileStorage:
         (default JSON file = stockage.json)
         """
         with open(self.__file_path, 'w+') as fhand:
-            json.dump({key: value.to_dict() for key, value in self.__objects.items()}, fhand)
+            json.dump({key: value.to_dict() for key,
+                       value in self.__objects.items()}, fhand)
 
     def reload(self):
         """

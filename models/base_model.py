@@ -30,7 +30,8 @@ class BaseModel():
         """
         prints representation of the cladd
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self):
         """
@@ -40,7 +41,7 @@ class BaseModel():
 
     def to_dict(self):
         """
-        returns a dictionary containing all 
+        returns a dictionary containing all
         data of __dict__ instance
         """
         objects = {}

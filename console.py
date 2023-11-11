@@ -3,7 +3,9 @@
 The main entry point of the
 command interpreter.
 """
-import cmd, json, re
+import cmd
+import json
+import re
 import models
 from models.base_model import BaseModel
 from models.engine.__init__ import storage
@@ -107,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         """
         if (self.errors(args, 2) == 1):
             return
-        
+
         args = args.split()
         dictionary = storage.all()
 
@@ -135,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
 
         print([str(value) for value in dictionary.values()
                if value.__class__.__name__ == args[0]])
-        
+
     def do_update(self, args):
         """
         Updates an instance based on the class
@@ -165,13 +167,15 @@ class HBNBCommand(cmd.Cmd):
 
         if attribute_key in class_attributes.keys():
             try:
-                attribute_value = type(class_attributes[attribute_key])(attribute_value)
+                attribute_value = type(class_attributes[attribute_key])
+                (attribute_value)
             except Exception:
                 print("Entered wrong value type")
                 return
 
         setattr(dictionary[key], attribute_key, attribute_value)
         storage.save()
+
 
 interpreter = HBNBCommand()
 interpreter.cmdloop()
