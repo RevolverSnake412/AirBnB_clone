@@ -24,8 +24,8 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     dictionary = storage.all()
     classes = {"BaseModel": BaseModel, "User": User, "State": State,
-           "City": City, "Amenity": Amenity, "Place": Place, "Review": Review,}
-
+               "City": City, "Amenity": Amenity, "Place": Place,
+               "Review": Review}
 
     def emptyline(self):
         """
@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args = args.partition(" ")
 
-        #ERROR_HANDLING
+        # ERROR_HANDLING
         if not args[0]:
             print("** class name missing **")
             return
@@ -109,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args = args.partition(" ")
 
-        #ERROR_HANDLING
+        # ERROR_HANDLING
         if not args[0]:
             print("** class name missing **")
             return
@@ -190,7 +190,7 @@ class HBNBCommand(cmd.Cmd):
 
             args = args.partition(' ')
 
-            if not attribute_name and args[0    ] != ' ':
+            if not attribute_name and args[0] != ' ':
                 attribute_name = args[0]
 
             if args[2] and args[2][0] == '\"':
@@ -214,7 +214,8 @@ class HBNBCommand(cmd.Cmd):
                     return
 
                 if attribute_name in HBNBCommand.types:
-                    attribute_value = HBNBCommand.types[attribute_name](attribute_value)
+                    attribute_value = HBNBCommand.types[attribute_name]
+                    (attribute_value)
 
                 dictionary.__dict__.update({attribute_name: attribute_value})
 
