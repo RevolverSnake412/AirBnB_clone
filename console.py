@@ -6,9 +6,8 @@ command interpreter.
 import cmd
 import json
 import re
-import models
 from models.base_model import BaseModel
-from models.engine.__init__ import storage
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
