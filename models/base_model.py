@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """A base_model.py class"""
 from uuid import uuid4
-import models
 from datetime import datetime
 
 
@@ -14,14 +13,15 @@ class BaseModel():
         """Init"""
         if not kwargs:
             self.id = str(uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
+            current_time = datetime.utcnow()
+            self.created_at = current_time
+            self.updated_at = current_time
         else:
             for key, value in kwargs.items():
                 if key in ("updated_at", "created_at"):
                     self.__dict__[key] = datetime.strptime(
                         value, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key[0] == "id":
+                elif key == "id":
                     self.__dict__[key] = str(value)
                 else:
                     self.__dict__[key] = value
