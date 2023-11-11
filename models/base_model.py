@@ -12,10 +12,12 @@ class BaseModel():
     def __init__(self, *args, **kwargs):
         """Init"""
         if not kwargs:
+            from models import storage
             self.id = str(uuid4())
             current_time = datetime.utcnow()
             self.created_at = current_time
             self.updated_at = current_time
+            storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key in ("updated_at", "created_at"):
@@ -37,7 +39,9 @@ class BaseModel():
         """
         Updates the public instance attribute `updated_at`
         """
+        from models import storage
         self.updated_at = datetime.utcnow()
+        storage.save()
 
     def to_dict(self):
         """
