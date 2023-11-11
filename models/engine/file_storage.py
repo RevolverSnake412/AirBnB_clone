@@ -55,4 +55,4 @@ class FileStorage:
                 for key, value in obj_dict.items():
                     self.all()[key] = classes[value['__class__']](**value)
         except json.decoder.JSONDecodeError as e:
-            print(f"JSONDecodeError: {e}")
+            pass
