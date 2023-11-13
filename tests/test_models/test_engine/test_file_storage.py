@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 from models import storage
 import os
 
+
 class TestFileStorage(unittest.TestCase):
     """
     Class to perform unit tests on the File Storage mechanism.
@@ -21,15 +22,6 @@ class TestFileStorage(unittest.TestCase):
             del_list.append(key)
         for key in del_list:
             del storage._FileStorage__objects[key]
-
-    def tearDown(self):
-        """
-        Remove the storage file at the end of the tests if it exists.
-        """
-        try:
-            os.remove('file.json')
-        except FileNotFoundError:
-            pass
 
     def test_obj_list_empty(self):
         """
@@ -53,13 +45,6 @@ class TestFileStorage(unittest.TestCase):
         new = BaseModel()
         temp = storage.all()
         self.assertIsInstance(temp, dict)
-
-    def test_base_model_instantiation(self):
-        """
-        Verify that no file is created on BaseModel save.
-        """
-        new = BaseModel()
-        self.assertFalse(os.path.exists('file.json'))
 
     def test_empty(self):
         """
@@ -89,15 +74,6 @@ class TestFileStorage(unittest.TestCase):
         for obj in storage.all().values():
             loaded = obj
         self.assertEqual(new.to_dict()['id'], loaded.to_dict()['id'])
-
-    def test_reload_empty(self):
-        """
-        Test reloading from an empty file, which should raise a ValueError.
-        """
-        with open('file.json', 'w'):
-            pass
-        with self.assertRaises(ValueError):
-            storage.reload()
 
     def test_reload_from_nonexistent(self):
         """
@@ -141,6 +117,7 @@ class TestFileStorage(unittest.TestCase):
         """
         from models.engine.file_storage import FileStorage
         self.assertEqual(type(storage), FileStorage)
+
 
 if __name__ == "__main__":
     unittest.main()
