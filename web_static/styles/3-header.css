@@ -5,7 +5,7 @@ header {
 	border-bottom: 1px #CCCCCC;
 	display: flex;
 	align-items: flex-start;
-	background-image: url('images/icon.png');
+	background-image: url('images/logo.png');
 	background-size: contain;
 	background-repeat: no-repeat;
 }
