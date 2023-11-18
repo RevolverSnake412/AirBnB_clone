@@ -33,6 +33,7 @@
   width: 25%;
   line-height: 20px;
   padding-left: 30px;
+  position: relative;
 }
 
 .filters div:first-child {
@@ -62,12 +63,10 @@ h4 {
   padding-right: 30px;
 }
 
-.locations:hover .popover {
-	display: inline-block;
-}
-
+.locations:hover .popover,
 .amenities:hover .popover {
 	display: inline-block;
+    z-index: 1;
 }
 
 .popover > li {
